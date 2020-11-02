@@ -1,0 +1,18 @@
+{{!-- index.hbs --}}
+{{!-- <ul title="Jokes:">
+    {{#each jokes}}
+    <li>
+        <p>{{setup}}</p> <br>
+        <p>{{punchline}}</p>
+    </li>
+    {{/each}}
+</ul>
+ --}}
+
+<h2>De sjoveste jokes nogensinde</h2>
+<dl>
+    {{#each jokes}}
+    <dt style="font-weight: bold;">{{setup}}</dt>
+    <dd>{{punchline}}</dd><br>
+    {{/each}}
+</dl>
