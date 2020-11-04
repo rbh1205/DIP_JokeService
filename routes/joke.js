@@ -3,6 +3,13 @@ const controller = require("../controller/controller");
 const express = require('express');
 const router = express.Router();
 
+async function get(url) {
+    const respons = await fetch(url);
+    if (respons.status !== 200) // OK
+        throw new Error(respons.status);
+    return await respons.json();
+}
+
 router
     .get('/api/jokes', async (request, response) => {
         try {
@@ -14,7 +21,8 @@ router
     })
     .get('/api/othersites', async (request, response) => {
         try {
-           
+            let result = await get("https://krdo-joke-registry.herokuapp.com/api/othersites")
+            response.send(result)
         } catch (e) {
             sendStatus(e, response);
         }
@@ -31,11 +39,12 @@ router
         try {
             let { setup, punchline } = request.body;
             await controller.createJoke(setup, punchline);
-           
+
         } catch (e) {
             sendStatus(e, response);
         }
-        response.send({ message: 'Joke saved!' });
+        // response.send({ message: 'Joke saved!' });
+        response.sendStatus(201);
     }
     );
 
@@ -47,7 +56,7 @@ function sendStatus(e, response) {
 
 module.exports = router;
 
-async function createjokefunc(){
+async function createjokefunc() {
     await controller.createJoke('Alle børnene slap ud af fængslet', 'Undtaget Peter, han nåede kun 500 meter')
 }
 
