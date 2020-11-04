@@ -12,15 +12,8 @@ async function get(url) {
 }
 
 router
-    .get('/api/jokes', async (request, response) => {
-        try {
-            let jokes = await controller.getJokes();
-            response.send(jokes);
-        } catch (e) {
-            sendStatus(e, response);
-        }
-    })
-    .get('/api/othersites', async (request, response) => {
+
+    .get('/', async (request, response) => {
         try {
             let result = await get("https://krdo-joke-registry.herokuapp.com/api/services")
             response.send(result)
@@ -28,26 +21,6 @@ router
             sendStatus(e, response);
         }
     })
-    .get('/api/othersites/:joke', async (request, response) => {
-        try {
-            let jokes = await controller.getJokes();
-            response.send(jokes);
-        } catch (e) {
-            sendStatus(e, response);
-        }
-    })
-    .post('/api/jokes', async (request, response) => {
-        try {
-            let { setup, punchline } = request.body;
-            await controller.createJoke(setup, punchline);
-
-        } catch (e) {
-            sendStatus(e, response);
-        }
-        // response.send({ message: 'Joke saved!' });
-        response.sendStatus(201);
-    }
-    );
 
 function sendStatus(e, response) {
     console.error("Exception: " + e);

@@ -32,7 +32,7 @@ async function generateJokesTable(jokes) {
 
 async function main() {
     try {
-        let jokes = await get('/joke/api/jokes');
+        let jokes = await get('/api/jokes');
         let div = document.getElementById('jokesdiv')
         div.innerHTML = await generateJokesTable(jokes);
     } catch (e) {
@@ -48,7 +48,7 @@ let punchlineField = document.getElementById('punchline')
 opretButton.onclick = async () => {
     if (setupField.value && punchlineField.value) {
         try {
-            await post("/joke/api/jokes", { setup: setupField.value, punchline: punchlineField.value });
+            await post("/api/jokes", { setup: setupField.value, punchline: punchlineField.value });
         } catch (e) {
         }
         setupField.value = ""
@@ -69,9 +69,8 @@ let selectSite = document.getElementById('selectSite')
 
 async function getSites() {
     try {
-        let result = await get('/joke/api/othersites');
+        let result = await get('/api/othersites');
         createSelect(result)
-
     }
     catch (e) {
         console.log(e);
