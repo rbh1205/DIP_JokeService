@@ -2,6 +2,7 @@
 const controller = require("../controller/controller");
 const express = require('express');
 const router = express.Router();
+const nodefetch = require('node-fetch')
 
 async function get(url) {
     const respons = await fetch(url);
