@@ -2,7 +2,7 @@
 const controller = require("../controller/controller");
 const express = require('express');
 const router = express.Router();
-const nodefetch = require('node-fetch')
+const fetch = require('node-fetch')
 
 async function get(url) {
     const respons = await fetch(url);
@@ -22,7 +22,7 @@ router
     })
     .get('/api/othersites', async (request, response) => {
         try {
-            let result = await get("https://krdo-joke-registry.herokuapp.com/api/othersites")
+            let result = await get("https://krdo-joke-registry.herokuapp.com/api/services")
             response.send(result)
         } catch (e) {
             sendStatus(e, response);
