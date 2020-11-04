@@ -30,16 +30,16 @@ async function generateJokesTable(jokes) {
     return compiledTemplate({ jokes });
 }
 
-async function main() {
+async function main(url) {
     try {
-        let jokes = await get('/api/jokes');
+        let jokes = await get(url);
         let div = document.getElementById('jokesdiv')
         div.innerHTML = await generateJokesTable(jokes);
     } catch (e) {
         console.log(e.name + ": " + e.message);
     }
 }
-main();
+main('/api/jokes');
 
 let opretButton = document.getElementById('opretButton')
 let setupField = document.getElementById('setup')
@@ -53,7 +53,7 @@ opretButton.onclick = async () => {
         }
         setupField.value = ""
         punchlineField.value = ""
-        main()
+        main('/api/jokes')
     }
 }
 
@@ -66,10 +66,34 @@ rydButton.onclick = () => {
 
 let selectSite = document.getElementById('selectSite')
 
+let othersitesObjects = []
+
+selectSite.onchange = async () => {
+
+    try{
+        let id;
+        for (site of othersitesObjects) {
+            if (site.name === selectSite.value) {
+                id = site._id
+            }
+         }
+        let jokes = await get("/api/otherjokes/" + id)
+        let div = document.getElementById('jokesdiv')
+        div.innerHTML = await generateJokesTable(jokes);
+    }
+    catch(e){
+        
+    }
+    
+
+}
+
+
 
 async function getSites() {
     try {
         let result = await get('/api/othersites');
+        othersitesObjects = result
         createSelect(result)
     }
     catch (e) {
@@ -80,7 +104,7 @@ async function getSites() {
 function createSelect(result) {
     let siteArray = []
     for (let i = 0; i < result.length; i++) {
-        siteArray.push(result[i].address)
+        siteArray.push(result[i].name)
         let option = document.createElement('option')
         option.text = siteArray[i]
         selectSite.add(option, i)
@@ -88,6 +112,8 @@ function createSelect(result) {
 
 }
 getSites()
+
+
 
 
 

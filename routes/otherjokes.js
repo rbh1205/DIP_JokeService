@@ -12,14 +12,23 @@ async function get(url) {
 }
 
 router
-
     .get('/:site', async (request, response) => {
         try {
-            let result = await get("https://krdo-joke-registry.herokuapp.com/api/otherjokes/:site")
+            let result = await get("https://krdo-joke-registry.herokuapp.com/api/services")
+            for (site of result) {
+                if (site._id == request.params.site) {
+                    let url = site.address
+                    if(url[url.length - 1] != '/'){
+                        url += '/'
+                    }
+                    result = await get(url + 'api/jokes')
+                }
+            }
             response.send(result)
         } catch (e) {
             sendStatus(e, response);
         }
+
     })
 
 function sendStatus(e, response) {

@@ -12,7 +12,7 @@ router
             sendStatus(e, response);
         }
     })
-   
+
     .post('/', async (request, response) => {
         try {
             let { setup, punchline } = request.body;
@@ -21,7 +21,6 @@ router
         } catch (e) {
             sendStatus(e, response);
         }
-        // response.send({ message: 'Joke saved!' });
         response.sendStatus(201);
     }
     );
