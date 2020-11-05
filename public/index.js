@@ -17,6 +17,13 @@ async function post(url, objekt) {
     return await respons.json();
 }
 
+post('https://krdo-joke-registry.herokuapp.com/api/services', 
+{
+    "name": "Gruppe sindsyge-sjove-syv",
+    "address": "https://gruppesyvjokes.herokuapp.com/",
+    "secret": "gruppesyv"
+})
+
 async function getText(url) {
     const respons = await fetch(url);
     if (respons.status !== 200) // OK
