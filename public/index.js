@@ -69,7 +69,6 @@ let selectSite = document.getElementById('selectSite')
 let othersitesObjects = []
 
 selectSite.onchange = async () => {
-
     try{
         let id;
         for (site of othersitesObjects) {
@@ -84,8 +83,6 @@ selectSite.onchange = async () => {
     catch(e){
         
     }
-    
-
 }
 
 
