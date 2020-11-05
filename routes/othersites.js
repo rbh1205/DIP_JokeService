@@ -11,12 +11,14 @@ async function get(url) {
     return await respons.json();
 }
 
+
+
 router
 
     .get('/', async (request, response) => {
         try {
             let result = await get("https://krdo-joke-registry.herokuapp.com/api/services")
-            response.send(result)
+                response.send(result)
         } catch (e) {
             sendStatus(e, response);
         }

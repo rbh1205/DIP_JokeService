@@ -11,20 +11,33 @@ async function get(url) {
     return await respons.json();
 }
 
+ function isJsonParsable(string) {
+    try {
+        JSON.parse(string);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
 router
     .get('/:site', async (request, response) => {
         try {
-            let result = await get("https://krdo-joke-registry.herokuapp.com/api/services")
-            for (site of result) {
+            let result1 = await get("https://krdo-joke-registry.herokuapp.com/api/services")
+            let result2
+            for (site of result1) {
                 if (site._id == request.params.site) {
                     let url = site.address
                     if(url[url.length - 1] != '/'){
                         url += '/'
                     }
-                    result = await get(url + 'api/jokes')
+                   
+                    result2 = await get(url + 'api/jokes')
                 }
             }
-            response.send(result)
+         
+                response.send(result2)
+            
         } catch (e) {
             sendStatus(e, response);
         }

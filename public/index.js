@@ -77,11 +77,12 @@ selectSite.onchange = async () => {
             }
          }
         let jokes = await get("/api/otherjokes/" + id)
-        let div = document.getElementById('jokesdiv')
-        div.innerHTML = await generateJokesTable(jokes);
+            let div = document.getElementById('jokesdiv')
+            div.innerHTML = await generateJokesTable(jokes);
+        
     }
     catch(e){
-        
+        alert("Den valgte jokeservice virker desværre ikke :(")
     }
 }
 
